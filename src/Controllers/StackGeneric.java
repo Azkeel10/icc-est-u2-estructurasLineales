@@ -1,73 +1,57 @@
 package Controllers;
 
 import java.util.EmptyStackException;
+import Models.NodeGeneric;
 
-import Models.Node;
-
-public class Stack {
-    private Node top;   //Nodo cima de la pila
+public class StackGeneric<T> {
+//-------------------------------------------------------------------------------
+    private NodeGeneric<T> top;
     private int size;
 //-------------------------------------------------------------------------------
-    public Stack() {
+    public StackGeneric() {
         this.top = null;
-        this.size=0;
+        this.size = 0;
     }
 //-------------------------------------------------------------------------------
-    public void push(int value){
-        Node nN = new Node(value);
-        nN .setNext(top);   //Es para agegar o saber cual es top
-        top = nN;
+    public void push(T value) {
+        NodeGeneric<T> newNode = new NodeGeneric<>(value);
+        newNode.setNext(top);
+        top = newNode;
         size++;
     }
 //-------------------------------------------------------------------------------
-    public int pop(){       //el ultimo q entro
-        if (isEmpty()){
+    public T pop() {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
-            
-        int value = top.getValue();
+
+        T value = top.getValue();
         top = top.getNext();
         size--;
         return value;
-        
-        }
+    }
 //-------------------------------------------------------------------------------
-    public int peek(){
-
-        if (isEmpty()){
+    public T peek() {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
-        
-        int value = top.getValue();
-        return value;
-        
+
+        return top.getValue();
     }
 //-------------------------------------------------------------------------------
-    public boolean isEmpty(){
-        return top==null;
+    public boolean isEmpty() {
+        return top == null;
     }
 //-------------------------------------------------------------------------------
-    public void printStack(){
-        Node aux = top;
+    public void printStack() {
+        NodeGeneric<T> aux = top;
         while (aux != null) {
-            
             System.out.print(aux.getValue() + " | ");
             aux = aux.getNext();
         }
     }
 //-------------------------------------------------------------------------------
-    public int size(){
+    public int size() {
         return size;
-        /*
-        Node aux = top;
-        int cont = 0; 
-
-        while (aux != null) {
-            aux = aux.getNext();
-            cont++;
-        }
-
-        return cont;
-        */
     }
 }
